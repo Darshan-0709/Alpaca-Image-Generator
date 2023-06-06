@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alpaca Image Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-200">
+    <div class="m-auto w-3/5 py-10">
+      <h1 class="text-3xl font-bold uppercase text-purple-900">
+        Alpaca Generator
+      </h1>
+      <div class="flex space-x-6 py-10">
+        <div>
+          <div class="relative h-64 w-64 bg-blue-900">
+            <img
+              class="alpaca-img absolute"
+              name="backgrounds"
+              src="./alpaca/backgrounds/blue50.png"
+            />
+            <img
+              class="alpaca-img absolute"
+              name="accessories"
+              src="./alpaca/accessories/headphone.png"
+            />
+            <img
+              class="alpaca-img absolute"
+              name="ears"
+              src="./alpaca/ears/default.png"
+              alt=""
+            />
+            <img
+              class="alpaca-img absolute"
+              name="neck"
+              src="./alpaca/neck/default.png"
+              alt=""
+            />
+            <img
+              class="alpaca-img absolute"
+              name="hair"
+              src="./alpaca/hair/default.png"
+              alt=""
+            />
+            <img
+              class="alpaca-img absolute"
+              name="eyes"
+              src="./alpaca/eyes/default.png"
+              alt=""
+            />
+            <img
+              class="alpaca-img absolute"
+              name="leg"
+              src="./alpaca/leg/default.png"
+              alt=""
+            />
+            <img class="absolute" name="nose" src="./alpaca/nose.png" alt="" />
+            <img
+              class="alpaca-img absolute"
+              name="mouth"
+              src="./alpaca/mouth/default.png"
+              alt=""
+            />
+          </div>
+          <div class="flex justify-between gap-3 pt-3">
+            <button
+              class="w-1/2 rounded-lg bg-white hover:bg-gray-100 py-2 text-center text-lg font-bold"
+            >
+              Download
+            </button>
+            <button
+              class="w-1/2 rounded-lg bg-white hover:bg-gray-100 py-2 text-center text-lg font-bold"
+            >
+              Random
+            </button>
+          </div>
+        </div>
+        <div class="w-1/2">
+          <p class="font-bold text-blue-950 text-lg">Accessorize the alpaca</p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <button data-accessorize name="hair" class="btn">Hair</button>
+            <button data-accessorize name="eare" class="btn">Ears</button>
+            <button data-accessorize name="eyes" class="btn">Eyes</button>
+            <button data-accessorize name="mouth" class="btn">Mouth</button>
+            <button data-accessorize name="neck" class="btn">Neck</button>
+            <button data-accessorize name="leg" class="btn">Leg</button>
+            <button data-accessorize name="accessories" class="btn">
+              Accessories
+            </button>
+            <button data-accessorize name="backgrounds" class="btn">
+              Backgrounds
+            </button>
+          </div>
+          <div>
+            <p class="pt-4 font-bold text-blue-950 text-lg">Style</p>
+            <div class="style flex flex-wrap gap-3 pt-2">
+              <button data-accessorize="" name="bang" class="btn">
+                bang
+              </button>
+              <button data-accessorize="" name="curls" class="btn">
+                curls
+              </button>
+              <button data-accessorize="" name="elegant" class="btn">
+                elegant
+              </button>
+              <button data-accessorize="" name="fancy" class="btn">
+                fancy
+              </button>
+              <button data-accessorize="" name="quiff" class="btn">
+                quiff
+              </button>
+              <button data-accessorize="" name="short" class="btn">
+                short
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .btn {
+          @apply rounded-3xl border-2 border-purple-700 px-5 py-1 font-bold text-blue-950 transition hover:bg-purple-900 hover:text-white;
+        }
+      }
+    </style>
+    <script src="app.js"></script>
+  </body>
+</html>
