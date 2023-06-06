@@ -44,7 +44,6 @@ function handleClick(e) {
     }).join('');
     style.innerHTML = text;
     changeImg.src =`./alpaca/${search}/${list[randomIndex]}.png`;
-
 }
 
 accessorizebtns.forEach(btn=> {
