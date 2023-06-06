@@ -14,16 +14,11 @@
       </h1>
       <div class="flex space-x-6 py-10">
         <div>
-          <div class="relative h-64 w-64 bg-blue-900">
+          <div class="imgHolder relative h-64 w-64 bg-blue-900">
             <img
-              class="alpaca-img absolute"
+              class="alpaca-img absolute "
               name="backgrounds"
               src="./alpaca/backgrounds/blue50.png"
-            />
-            <img
-              class="alpaca-img absolute"
-              name="accessories"
-              src="./alpaca/accessories/headphone.png"
             />
             <img
               class="alpaca-img absolute"
@@ -55,22 +50,27 @@
               src="./alpaca/leg/default.png"
               alt=""
             />
-            <img class="absolute" name="nose" src="./alpaca/nose.png" alt="" />
+            <img class="alpaca-img absolute" name="nose" src="./alpaca/nose.png" alt="" />
             <img
               class="alpaca-img absolute"
               name="mouth"
               src="./alpaca/mouth/default.png"
               alt=""
             />
+            <img
+              class="alpaca-img absolute z-index-50"
+              name="accessories"
+              src="./alpaca/accessories/headphone.png"
+            />
           </div>
           <div class="flex justify-between gap-3 pt-3">
             <button
-              class="w-1/2 rounded-lg bg-white hover:bg-gray-100 py-2 text-center text-lg font-bold"
+              class="donwloadImg w-1/2 rounded-lg bg-white hover:bg-gray-100 py-2 text-center text-lg font-bold"
             >
               Download
             </button>
             <button
-              class="w-1/2 rounded-lg bg-white hover:bg-gray-100 py-2 text-center text-lg font-bold"
+              class="random w-1/2 rounded-lg bg-white hover:bg-gray-100 py-2 text-center text-lg font-bold"
             >
               Random
             </button>
@@ -79,8 +79,8 @@
         <div class="w-1/2">
           <p class="font-bold text-blue-950 text-lg">Accessorize the alpaca</p>
           <div class="flex flex-wrap gap-3 pt-2">
-            <button data-accessorize name="hair" class="btn">Hair</button>
-            <button data-accessorize name="eare" class="btn">Ears</button>
+            <button data-accessorize name="hair" class="btn bg-purple-900 white">Hair</button>
+            <button data-accessorize name="ears" class="btn">Ears</button>
             <button data-accessorize name="eyes" class="btn">Eyes</button>
             <button data-accessorize name="mouth" class="btn">Mouth</button>
             <button data-accessorize name="neck" class="btn">Neck</button>
@@ -95,22 +95,25 @@
           <div>
             <p class="pt-4 font-bold text-blue-950 text-lg">Style</p>
             <div class="style flex flex-wrap gap-3 pt-2">
-              <button data-accessorize="" name="bang" class="btn">
+              <button data-style name="default" class="btn white bg-purple-900">
+                default
+              </button>
+              <button data-style name="bang" class="btn">
                 bang
               </button>
-              <button data-accessorize="" name="curls" class="btn">
+              <button data-style name="curls" class="btn">
                 curls
               </button>
-              <button data-accessorize="" name="elegant" class="btn">
+              <button data-style name="elegant" class="btn">
                 elegant
               </button>
-              <button data-accessorize="" name="fancy" class="btn">
+              <button data-style name="fancy" class="btn">
                 fancy
               </button>
-              <button data-accessorize="" name="quiff" class="btn">
+              <button data-style name="quiff" class="btn">
                 quiff
               </button>
-              <button data-accessorize="" name="short" class="btn">
+              <button data-style name="short" class="btn">
                 short
               </button>
             </div>
@@ -123,6 +126,9 @@
         .btn {
           @apply rounded-3xl border-2 border-purple-700 px-5 py-1 font-bold text-blue-950 transition hover:bg-purple-900 hover:text-white;
         }
+      }
+      .white{
+        color: white;
       }
     </style>
     <script src="app.js"></script>
