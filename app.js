@@ -1,8 +1,11 @@
 
-const style = document.querySelector('.style');
+const styleEle = document.querySelector('.style');
+const randomBtn = document.querySelector('.random');
+const downloadImgBtn = document.querySelector('.donwloadImg');
 const accessorizebtns = document.querySelectorAll('[data-accessorize]');
+const alpacaImgHolder = document.querySelector('.imgHolder');
 const alpacaImgs = document.querySelectorAll('.alpaca-img');
-console.log()
+let styleBtns = document.querySelectorAll('[data-style]');
 
 
 const  accessorize = {
@@ -10,43 +13,144 @@ const  accessorize = {
     backgrounds : ['blue50', 'blue60', 'blue70', 'darkblue30', 'darkblue50', 'darkblue70', 'green50', 'green60', 'green70', 'grey40', 'grey70', 'grey80', 'red50', 'red60', 'red70', 'yellow50', 'yellow60', 'yellow70'],
     ears : ['default', 'tilt-backward', 'tilt-forward'],
     eyes : ['default', 'angry', 'naughty', 'panda', 'smart', 'star'],
-    hair : ['bang', 'curls', 'elegant', 'fancy', 'quiff', 'short'],
+    hair : ['default', 'bang', 'curls', 'elegant', 'fancy', 'quiff', 'short'],
     leg : ['default', 'bubble-tea', 'cookie', 'game-console', 'tilt-backward', 'tilt-forward'],
     mouth : ['default', 'astonished', 'eating', 'laugh', 'tongue'],
     neck : ['default', 'bend-backward', 'bend-forward', 'thick'],
+    // nose has only one style so we are going to ingnore it for the rest of the code
 }
+
 const eachStyle = {
-    accessories: 0,
-    ears: 0,
-    eyes: 0,
-    hair: 0,
-    leg: 0,
-    mouth: 0,
-    neck: 0,
+    accessories : 'earings',
+    ears : 'default',
+    eyes : 'default',
+    hair : 'default',
+    leg : 'default',
+    mouth : 'default',
+    neck : 'default',
+    backgrounds : 'blue50'
 }
 
-let name = '';
-let pickedAccessorize;
+let pickedAccessorize = 'hair';
+let pickedStyle = eachStyle[pickedAccessorize];
+let list = accessorize.pickedAccessorize;
 
-function handleClick(e) {
-    pickedAccessorize = this;
-    coords = this.getBoundingClientRect()
-    console.log(coords)
-    const search = this.innerHTML.trim().toLowerCase();
-    const list = accessorize[`${search}`];
-    const changeImg = [...alpacaImgs].find(img => img.name === search);
-    const randomIndex = Math.floor(Math.random() * list.length);
-    console.log(Math.floor(Math.random() * list.length));
+
+function handelAccessorize(e) {
+    pickedAccessorize = this.name;
+    let lastStyleBtn
+    const changeImg = [...alpacaImgs].find(img => img.name === pickedAccessorize);
+    pickedStyle = eachStyle[pickedAccessorize];
+    console.log(pickedAccessorize)
+    console.log(pickedStyle)
+    accessorizebtns.forEach(btn =>{
+        btn.classList.remove('bg-purple-900');
+        btn.classList.remove('white');
+    });
+    this.classList.add('white');
+    this.classList.add('bg-purple-900');
+    list = accessorize[`${pickedAccessorize}`];
+    eachStyle[pickedAccessorize] = pickedStyle;
+    console.log(eachStyle)
+
     const text = list.map((item, index) => {
         return `
-        <button data-accessorize name="${list[index]}" class="btn">${list[index]}</button>
+        <button data-style name="${list[index]}" class="btn">
+        ${list[index]}
+        </button>
         `
     }).join('');
-    style.innerHTML = text;
-    changeImg.src =`./alpaca/${search}/${list[randomIndex]}.png`;
+    styleEle.innerHTML = text;
+    styleBtns = document.querySelectorAll('[data-style]');
+    changeImg.src =`./alpaca/${pickedAccessorize}/${pickedStyle}.png`;
+    
+    lastStyleBtn =  undefined ? styleBtns[0] : [...styleBtns].find(btn => btn.name === pickedStyle);
+    lastStyleBtn.classList.add('white');
+    lastStyleBtn.classList.add('bg-purple-900');
+    
+    // note : we need to add this eventListener 'cause we are created button elmeent 
+    // each time we pick accessorize
+    styleBtns.forEach(btn => {
+        btn.addEventListener('click', handleStyle);
+    });
+}
+
+function handleStyle() {
+    // this we have to find pickAccessorize this way because if we directyly click
+    pickedAccessorize = [...accessorizebtns].find(btn => btn.classList.contains('white')).name
+    // get the img and apply the style to cliked button
+    const changeImg = [...alpacaImgs].find(img => img.name === pickedAccessorize)
+    containClass = [...styleBtns].some(btn => btn.classList.contains('white'));
+    // remove style and add the style that we clicked on
+    if(containClass){
+       styleBtns.forEach(btn => {
+        btn.classList.remove('white');
+        btn.classList.remove('bg-purple-900');
+       })
+    }
+    this.classList.add('white');
+    this.classList.add('bg-purple-900');
+    // get the each styel for the specific part of alpaca
+    eachStyle[pickedAccessorize] = this.name
+    pickedStyle = eachStyle[pickedAccessorize]
+    
+    changeImg.src = `./alpaca/${pickedAccessorize}/${pickedStyle}.png`;
+}
+
+function randomizeImg() {
+    // take each img and update the each styely randomly
+    // and change the value of eachStyle and img src 
+    alpacaImgs.forEach(img => {
+        //we don't need to itarate over nose because there is only one style for nose
+        if(img.name != 'nose'){
+            pickedAccessorize = img.name
+            list = accessorize[`${pickedAccessorize}`]
+            console.log(Array.isArray(list))
+            randomNum = Math.floor(Math.random() * list.length)
+            pickedStyle = list[randomNum];
+            // change eachStyle to add selected background
+            eachStyle[pickedAccessorize] = pickedStyle;
+            img.src = `./alpaca/${img.name}/${pickedStyle}.png`
+            // handleStyle()
+        }else{
+            return
+        }
+    })
+}
+
+function downloadImg() {
+    const holderWidth = alpacaImgHolder.offsetWidth;  
+    const holderHeight = alpacaImgHolder.offsetHeight;   
+
+    // to be able to get the 
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    // To make img bigger 
+    const scaled = 3
+    canvas.width = holderWidth * scaled;
+    canvas.height = holderHeight * scaled;
+
+    // We are going to draw each img on canvas
+    alpacaImgs.forEach(img => {
+        const scaledWidth = img.width * scaled
+        const scaledHeight = img.height * scaled;
+        ctx.drawImage(img, 0, 0, scaledWidth, scaledHeight);
+    });
+
+    // create new link to set img to download
+    const link = document.createElement('a')
+    link.href = canvas.toDataURL("img/png");
+    link.download = 'alpaca.png';
+
+    // Automate the donwload process
+    link.click();
 }
 
 accessorizebtns.forEach(btn=> {
-    btn.addEventListener('click', handleClick);
+    btn.addEventListener('click', handelAccessorize);
 });
-
+styleBtns.forEach(btn => {
+    btn.addEventListener('click', handleStyle);
+});
+randomBtn.addEventListener('click', randomizeImg)
+downloadImgBtn.addEventListener('click', downloadImg)
