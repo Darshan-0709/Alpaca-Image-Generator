@@ -20,6 +20,7 @@ const  accessorize = {
     // nose has only one style so we are going to ingnore it for the rest of the code
 }
 
+// This object will halp us what style are seleced on each Accessorize
 const eachStyle = {
     accessories : 'earings',
     ears : 'default',
@@ -37,22 +38,24 @@ let list = accessorize.pickedAccessorize;
 
 
 function handelAccessorize(e) {
+    // set the Accessorize to get styles, set eachStyle and Image for that Accesssorize
     pickedAccessorize = this.name;
-    let lastStyleBtn
     const changeImg = [...alpacaImgs].find(img => img.name === pickedAccessorize);
     pickedStyle = eachStyle[pickedAccessorize];
-    console.log(pickedAccessorize)
-    console.log(pickedStyle)
+    list = accessorize[`${pickedAccessorize}`];
+    eachStyle[pickedAccessorize] = pickedStyle;
+
+    // first remove bakckgorund from each button and add background to clicked button
     accessorizebtns.forEach(btn =>{
         btn.classList.remove('bg-purple-900');
         btn.classList.remove('white');
     });
     this.classList.add('white');
     this.classList.add('bg-purple-900');
-    list = accessorize[`${pickedAccessorize}`];
-    eachStyle[pickedAccessorize] = pickedStyle;
-    console.log(eachStyle)
 
+    // display the style button for that specific Accessorize
+    // We need to use .join() method because list.map is going to return array 
+    // We want single array to display in DOM 
     const text = list.map((item, index) => {
         return `
         <button data-style name="${list[index]}" class="btn">
@@ -61,9 +64,12 @@ function handelAccessorize(e) {
         `
     }).join('');
     styleEle.innerHTML = text;
-    styleBtns = document.querySelectorAll('[data-style]');
+    // change the img by changeing src value
     changeImg.src =`./alpaca/${pickedAccessorize}/${pickedStyle}.png`;
     
+    // Every time we create style button for Accessorize 
+    // we need to select and add style to it eachStyle(object)
+    styleBtns = document.querySelectorAll('[data-style]');
     lastStyleBtn =  undefined ? styleBtns[0] : [...styleBtns].find(btn => btn.name === pickedStyle);
     lastStyleBtn.classList.add('white');
     lastStyleBtn.classList.add('bg-purple-900');
@@ -76,7 +82,9 @@ function handelAccessorize(e) {
 }
 
 function handleStyle() {
-    // this we have to find pickAccessorize this way because if we directyly click
+    // We have to find pickAccessorize this way because 
+    // If we clicked random button and then we directyly clik on style buttons,
+    // Javascipt will throw and arror
     pickedAccessorize = [...accessorizebtns].find(btn => btn.classList.contains('white')).name
     // get the img and apply the style to cliked button
     const changeImg = [...alpacaImgs].find(img => img.name === pickedAccessorize)
@@ -119,6 +127,7 @@ function randomizeImg() {
 }
 
 function downloadImg() {
+    // get the height and widht 
     const holderWidth = alpacaImgHolder.offsetWidth;  
     const holderHeight = alpacaImgHolder.offsetHeight;   
 
@@ -152,5 +161,5 @@ accessorizebtns.forEach(btn=> {
 styleBtns.forEach(btn => {
     btn.addEventListener('click', handleStyle);
 });
-randomBtn.addEventListener('click', randomizeImg)
-downloadImgBtn.addEventListener('click', downloadImg)
+randomBtn.addEventListener('click', randomizeImg);
+downloadImgBtn.addEventListener('click', downloadImg);
