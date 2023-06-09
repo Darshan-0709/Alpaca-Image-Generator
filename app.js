@@ -64,8 +64,6 @@ function handelAccessorize(e) {
         `
     }).join('');
     styleEle.innerHTML = text;
-    // change the img by changeing src value
-    changeImg.src =`./alpaca/${pickedAccessorize}/${pickedStyle}.png`;
     
     // Every time we create style button for Accessorize 
     // we need to select and add style to it eachStyle(object)
@@ -113,7 +111,6 @@ function randomizeImg() {
         if(img.name != 'nose'){
             pickedAccessorize = img.name
             list = accessorize[`${pickedAccessorize}`]
-            console.log(Array.isArray(list))
             randomNum = Math.floor(Math.random() * list.length)
             pickedStyle = list[randomNum];
             // change eachStyle to add selected background
